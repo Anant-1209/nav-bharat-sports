@@ -36,6 +36,8 @@ import {
   Crown
 } from 'lucide-react';
 
+// NOTE: For local development, place 'logo.jpg' in the 'public' folder of your project.
+
 // --- Firebase Configuration (YOUR CREDENTIALS) ---
 const firebaseConfig = {
   apiKey: "AIzaSyBBWiP5lCQqLnWSFSf7HZsHh5rbUz0oV8s",
@@ -84,24 +86,23 @@ const Navbar = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Logo - Updated to use your image */}
+          {/* Logo */}
           <div className="flex items-center space-x-3 group cursor-pointer">
-            <div className="h-12 w-12 overflow-hidden rounded-xl border-2 border-slate-700 bg-white">
-              {/* Make sure to put 'logo.jpg' in your public folder! */}
+            <div className="h-10 w-10 md:h-12 md:w-12 overflow-hidden rounded-xl border-2 border-slate-700 bg-white">
+              {/* Make sure to put 'logo.jpg' in your PUBLIC folder! */}
               <img 
                 src="/logo.jpg" 
                 alt="Nav Bharat" 
                 className="h-full w-full object-contain" 
                 onError={(e) => {
-                  // Fallback if image isn't found
                   (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trophy text-orange-600 m-auto mt-2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>';
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg class="w-full h-full p-2 text-orange-600" ... />';
                 }}
               />
             </div>
             <div>
-              <h1 className="text-2xl font-black tracking-tight uppercase italic">Nav Bharat</h1>
-              <span className="text-xs text-orange-400 tracking-[0.3em] font-bold block -mt-1">SPORTS</span>
+              <h1 className="text-xl md:text-2xl font-black tracking-tight uppercase italic">Nav Bharat</h1>
+              <span className="text-[10px] md:text-xs text-orange-400 tracking-[0.3em] font-bold block -mt-1">SPORTS</span>
             </div>
           </div>
 
@@ -129,8 +130,19 @@ const Navbar = ({
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Actions (Cart + Menu) */}
+          <div className="md:hidden flex items-center space-x-2">
+            
+            {/* MOBILE CART BUTTON ADDED HERE */}
+            <button onClick={toggleCart} className="relative p-2 text-gray-300 hover:text-white mr-2">
+              <ShoppingBag size={24} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full border-2 border-slate-900">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-gray-300 hover:text-white">
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -156,7 +168,7 @@ const Navbar = ({
 
 // 2. Hero Section
 const Hero = () => (
-  <div className="relative bg-slate-900 overflow-hidden min-h-[600px] flex items-center justify-center">
+  <div className="relative bg-slate-900 overflow-hidden min-h-[500px] md:min-h-[600px] flex items-center justify-center">
     {/* Background Image with Overlay */}
     <div className="absolute inset-0">
       <img 
@@ -171,11 +183,11 @@ const Hero = () => (
       <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-orange-600/20 border border-orange-500/30 backdrop-blur-sm">
         <span className="text-orange-400 font-bold text-sm tracking-wider uppercase">Jhansi's Premier Sports Hub</span>
       </div>
-      <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
+      <h1 className="text-4xl md:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
         UNLEASH YOUR <br/>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">INNER CHAMPION</span>
       </h1>
-      <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+      <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
         From professional cricket kits to premium fitness gear. Nav Bharat Sports brings you the world's best equipment right here in Jhansi.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -783,20 +795,7 @@ export default function App() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <div className="bg-orange-500 p-2 rounded-lg">
-                {/* <Trophy size={24} className="text-white" /> */}
-                <div className="h-12 w-12 overflow-hidden rounded-xl border-2 border-slate-700 bg-white">
-              {/* Make sure to put 'logo.jpg' in your public folder! */}
-              <img 
-                src="/logo.jpg" 
-                alt="Nav Bharat" 
-                className="h-full w-full object-contain" 
-                onError={(e) => {
-                  // Fallback if image isn't found
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trophy text-orange-600 m-auto mt-2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>';
-                }}
-              />
-            </div>
+                <Trophy size={24} className="text-white" />
               </div>
               <span className="text-white font-black text-2xl uppercase italic tracking-wider">Nav Bharat</span>
             </div>

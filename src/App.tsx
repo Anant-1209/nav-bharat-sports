@@ -90,10 +90,10 @@ const Navbar = ({
           <div className="flex items-center space-x-3 group cursor-pointer">
             <div className="h-10 w-10 md:h-12 md:w-12 overflow-hidden rounded-xl border-2 border-slate-700 bg-white">
               {/* Make sure to put 'logo.jpg' in your PUBLIC folder! */}
-              <img 
-                src="/logo.jpg" 
-                alt="Nav Bharat" 
-                className="h-full w-full object-contain" 
+              <img
+                src={new URL('./logo.jpg', import.meta.url).href}
+                alt="Nav Bharat"
+                className="h-full w-full object-contain"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                   (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg class="w-full h-full p-2 text-orange-600" ... />';
@@ -794,9 +794,22 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-orange-500 p-2 rounded-lg">
+              {/* <div className="bg-orange-500 p-2 rounded-lg">
                 <Trophy size={24} className="text-white" />
-              </div>
+              </div> */}
+
+              <div className="h-10 w-10 md:h-12 md:w-12 overflow-hidden rounded-xl border-2 border-slate-700 bg-white">
+              {/* Make sure to put 'logo.jpg' in your PUBLIC folder! */}
+              <img
+                src={new URL('./logo.jpg', import.meta.url).href}
+                alt="Nav Bharat"
+                className="h-full w-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  (e.target as HTMLImageElement).parentElement!.innerHTML = '<svg class="w-full h-full p-2 text-orange-600" ... />';
+                }}
+              />
+            </div>
               <span className="text-white font-black text-2xl uppercase italic tracking-wider">Nav Bharat</span>
             </div>
             <p className="text-slate-400 leading-relaxed mb-8 max-w-sm">
